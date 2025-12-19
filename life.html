@@ -18,9 +18,9 @@
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            border: 2px solid var(--border-color);
-            background: var(--card-bg);
-            color: var(--text-color);
+            border: 2px solid #e5e5e5;
+            background: #fff;
+            color: #333;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -31,12 +31,14 @@
         }
 
         [data-theme="dark"] .dark-mode-toggle {
+            border: 2px solid #2a2a2a;
+            background: #141414;
+            color: #ededed;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         .dark-mode-toggle:hover {
             transform: scale(1.1);
-            border-color: var(--text-color);
         }
 
         .dark-mode-toggle svg {
@@ -45,62 +47,33 @@
             transition: transform 0.3s ease;
         }
 
-        /* Gradient trail cursor - covers large area */
-        .cursor-gradient {
-            position: fixed;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            filter: blur(50px);
-            transition: opacity 0.2s ease;
-            opacity: 0;
-            will-change: transform, opacity;
-        }
-        
-        .cursor-gradient.visible {
-            opacity: 0.8;
-        }
-        
-        .cursor-gradient.hover {
-            width: 350px;
-            height: 350px;
-            opacity: 1;
-        }
-
         /* Photo gallery styles */
         .photo-gallery {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 24px;
+            margin-bottom: 80px;
         }
 
         .gallery-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
+            font-size: 16px;
             font-weight: 600;
-            color: var(--text-color);
+            color: #000;
             margin-bottom: 12px;
-            letter-spacing: -0.02em;
+            text-transform: lowercase;
+        }
+
+        [data-theme="dark"] .gallery-title {
+            color: #ededed;
         }
 
         .gallery-description {
-            color: var(--text-secondary);
+            color: #666;
             font-size: 15px;
             line-height: 1.7;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
 
-        .gallery-main {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-        }
-
-        [data-theme="dark"] .gallery-main {
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        [data-theme="dark"] .gallery-description {
+            color: #b0b0b0;
         }
 
         .gallery-main {
@@ -112,6 +85,12 @@
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             margin-bottom: 24px;
+            border: 1px solid #e5e5e5;
+        }
+
+        [data-theme="dark"] .gallery-main {
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         .gallery-main img {
@@ -139,18 +118,42 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--border-color);
+            background: #e5e5e5;
             cursor: pointer;
             transition: background 0.3s ease, transform 0.3s ease;
         }
 
+        [data-theme="dark"] .gallery-dot {
+            background: #2a2a2a;
+        }
+
         .gallery-dot.active {
-            background: var(--text-color);
+            background: #000;
             transform: scale(1.2);
         }
 
+        [data-theme="dark"] .gallery-dot.active {
+            background: #ededed;
+        }
+
         .gallery-dot:hover {
-            background: var(--text-secondary);
+            background: #999;
+        }
+
+        [data-theme="dark"] .gallery-dot:hover {
+            background: #666;
+        }
+
+        .motivational-message {
+            margin-top: 32px;
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        [data-theme="dark"] .motivational-message {
+            color: #b0b0b0;
         }
     </style>
 </head>
@@ -190,7 +193,7 @@
             <div class="gallery-controls" id="galleryControls"></div>
         </div>
 
-        <div class="photo-gallery fade-in" style="margin-top: 80px;">
+        <div class="photo-gallery fade-in">
             <h2 class="gallery-title">Basketball Highlights</h2>
             <p class="gallery-description">Some of my favorite moments on the court from my senior year.</p>
             
@@ -202,14 +205,11 @@
 
             <div class="gallery-controls" id="videoControls"></div>
             
-            <p style="margin-top: 32px; font-style: italic; color: var(--text-secondary); text-align: center; font-size: 14px;">
+            <p class="motivational-message">
                 p.s. i like working out now — keeps me motivated (and helps me not feel imposter syndrome or something like that)
             </p>
         </div>
     </div>
-
-    <!-- Gradient trail cursor -->
-    <div class="cursor-gradient" id="cursorGradient"></div>
 
     <script>
         // Dark mode toggle
@@ -219,8 +219,9 @@
             const moonIcon = document.getElementById('moonIcon');
             const html = document.documentElement;
             
-            // Check for saved theme preference or default to light mode
-            const currentTheme = localStorage.getItem('theme') || 'light';
+            // Default to light mode - only use dark if explicitly saved
+            const savedTheme = localStorage.getItem('theme');
+            const currentTheme = (savedTheme === 'dark') ? 'dark' : 'light';
             html.setAttribute('data-theme', currentTheme);
             
             // Update icon based on theme
@@ -370,75 +371,6 @@
         videoAutoPlayTimeout = setTimeout(() => {
             nextVideo();
         }, 8000);
-
-        // Gradient trail cursor
-        (function() {
-            const gradient = document.getElementById('cursorGradient');
-            
-            if (!gradient) return;
-            
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-            let gradientX = mouseX;
-            let gradientY = mouseY;
-            let isHovering = false;
-            let isMoving = false;
-            let lastMoveTime = 0;
-
-            gradient.style.left = mouseX + 'px';
-            gradient.style.top = mouseY + 'px';
-
-            const updateMouse = (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                isMoving = true;
-                lastMoveTime = Date.now();
-                
-                if (!gradient.classList.contains('visible')) {
-                    gradient.classList.add('visible');
-                }
-            };
-
-            const checkHover = (e) => {
-                const target = e.target;
-                const interactive = target.tagName === 'A' || 
-                                   target.tagName === 'BUTTON' || 
-                                   target.closest('a') !== null || 
-                                   target.closest('button') !== null ||
-                                   window.getComputedStyle(target).cursor === 'pointer';
-                
-                if (interactive !== isHovering) {
-                    isHovering = interactive;
-                    if (isHovering) {
-                        gradient.classList.add('hover');
-                    } else {
-                        gradient.classList.remove('hover');
-                    }
-                }
-            };
-
-            const animate = () => {
-                const timeSinceMove = Date.now() - lastMoveTime;
-                if (timeSinceMove > 50 && isMoving) {
-                    isMoving = false;
-                    gradient.classList.remove('visible');
-                }
-                
-                gradientX += (mouseX - gradientX) * 0.1;
-                gradientY += (mouseY - gradientY) * 0.1;
-
-                gradient.style.left = gradientX + 'px';
-                gradient.style.top = gradientY + 'px';
-
-                requestAnimationFrame(animate);
-            };
-
-            document.addEventListener('mousemove', updateMouse);
-            document.addEventListener('mouseover', checkHover);
-            document.addEventListener('mouseout', checkHover);
-            
-            animate();
-        })();
     </script>
 </body>
 </html>
