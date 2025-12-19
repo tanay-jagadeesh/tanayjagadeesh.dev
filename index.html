@@ -50,30 +50,51 @@
             transition: transform 0.3s ease;
         }
 
-        /* Gradient trail cursor - covers large area */
+        /* Enhanced gradient cursor with multiple layers */
         .cursor-gradient {
             position: fixed;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.7) 0%, rgba(139, 92, 246, 0.5) 25%, rgba(59, 130, 246, 0.3) 45%, rgba(139, 92, 246, 0.15) 65%, transparent 85%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            filter: blur(50px);
-            transition: opacity 0.2s ease;
+            filter: blur(60px);
             opacity: 0;
-            will-change: transform, opacity;
+            will-change: transform, opacity, width, height;
+            transition: opacity 0.15s ease, width 0.3s ease, height 0.3s ease;
         }
         
         .cursor-gradient.visible {
-            opacity: 0.8;
+            opacity: 0.9;
         }
         
         .cursor-gradient.hover {
-            width: 350px;
-            height: 350px;
+            width: 400px;
+            height: 400px;
             opacity: 1;
+            filter: blur(70px);
+        }
+        
+        /* Secondary trailing layer for depth */
+        .cursor-gradient-trail {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) 40%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            filter: blur(40px);
+            opacity: 0;
+            will-change: transform, opacity;
+            transition: opacity 0.2s ease;
+        }
+        
+        .cursor-gradient-trail.visible {
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -239,8 +260,9 @@
         </footer>
     </div>
 
-    <!-- Gradient trail cursor -->
+    <!-- Enhanced gradient cursor with trailing effect -->
     <div class="cursor-gradient" id="cursorGradient"></div>
+    <div class="cursor-gradient-trail" id="cursorTrail"></div>
 
     <script>
         // Dark mode toggle
@@ -304,12 +326,13 @@
             });
         })();
 
-        // Gradient trail that follows cursor - covers large area
+        // Enhanced gradient cursor with trailing effect
         (function() {
             const gradient = document.getElementById('cursorGradient');
+            const trail = document.getElementById('cursorTrail');
             
-            if (!gradient) {
-                console.error('Cursor gradient not found');
+            if (!gradient || !trail) {
+                console.error('Cursor elements not found');
                 return;
             }
             
@@ -317,23 +340,41 @@
             let mouseY = window.innerHeight / 2;
             let gradientX = mouseX;
             let gradientY = mouseY;
+            let trailX = mouseX;
+            let trailY = mouseY;
             let isHovering = false;
             let isMoving = false;
             let lastMoveTime = 0;
+            let velocityX = 0;
+            let velocityY = 0;
+            let lastMouseX = mouseX;
+            let lastMouseY = mouseY;
 
-            // Initialize position
+            // Initialize positions
             gradient.style.left = mouseX + 'px';
             gradient.style.top = mouseY + 'px';
+            trail.style.left = mouseX + 'px';
+            trail.style.top = mouseY + 'px';
 
             const updateMouse = (e) => {
+                lastMouseX = mouseX;
+                lastMouseY = mouseY;
                 mouseX = e.clientX;
                 mouseY = e.clientY;
+                
+                // Calculate velocity for smoother animation
+                velocityX = mouseX - lastMouseX;
+                velocityY = mouseY - lastMouseY;
+                
                 isMoving = true;
                 lastMoveTime = Date.now();
                 
-                // Show gradient when moving
+                // Show gradients when moving
                 if (!gradient.classList.contains('visible')) {
                     gradient.classList.add('visible');
+                }
+                if (!trail.classList.contains('visible')) {
+                    trail.classList.add('visible');
                 }
             };
 
@@ -356,19 +397,31 @@
             };
 
             const animate = () => {
-                // Fade instantly when cursor stops
+                // Fade when cursor stops moving
                 const timeSinceMove = Date.now() - lastMoveTime;
-                if (timeSinceMove > 50 && isMoving) {
+                if (timeSinceMove > 100 && isMoving) {
                     isMoving = false;
                     gradient.classList.remove('visible');
+                    trail.classList.remove('visible');
                 }
                 
-                // Smooth trailing effect - covers large area as it follows
-                gradientX += (mouseX - gradientX) * 0.1;
-                gradientY += (mouseY - gradientY) * 0.1;
+                // Dynamic easing based on velocity for more responsive feel
+                const speed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+                const easeFactor = Math.min(0.15 + (speed * 0.001), 0.25);
+                const trailEaseFactor = easeFactor * 0.6;
+                
+                // Main gradient follows cursor with dynamic easing
+                gradientX += (mouseX - gradientX) * easeFactor;
+                gradientY += (mouseY - gradientY) * easeFactor;
+                
+                // Trail follows with more lag for depth effect
+                trailX += (mouseX - trailX) * trailEaseFactor;
+                trailY += (mouseY - trailY) * trailEaseFactor;
 
                 gradient.style.left = gradientX + 'px';
                 gradient.style.top = gradientY + 'px';
+                trail.style.left = trailX + 'px';
+                trail.style.top = trailY + 'px';
 
                 requestAnimationFrame(animate);
             };
