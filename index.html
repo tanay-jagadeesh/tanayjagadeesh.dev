@@ -61,7 +61,7 @@
             z-index: 9999;
             transform: translate(-50%, -50%);
             filter: blur(45px);
-            transition: opacity 3s ease-out, width 0.3s ease, height 0.3s ease;
+            transition: opacity 5s ease-out, width 0.3s ease, height 0.3s ease;
             opacity: 0;
             will-change: transform, opacity, width, height;
         }
@@ -456,7 +456,7 @@
                 if (timeSinceMove > 1500 && isMoving) {
                     isMoving = false;
                     // Start gradual fade
-                    gradient.style.transition = 'opacity 2.5s ease-out, width 0.3s ease, height 0.3s ease';
+                    gradient.style.transition = 'opacity 5s ease-out, width 0.3s ease, height 0.3s ease';
                     gradient.classList.remove('visible');
                     gradient.classList.remove('moving');
                 } else if (timeSinceMove <= 1500 && !isMoving) {
