@@ -61,7 +61,7 @@
             z-index: 9999;
             transform: translate(-50%, -50%);
             filter: blur(50px);
-            transition: opacity 1.5s ease-out, width 0.3s ease, height 0.3s ease;
+            transition: opacity 2.5s ease-out, width 0.3s ease, height 0.3s ease;
             opacity: 0;
             will-change: transform, opacity, width, height;
         }
@@ -73,22 +73,22 @@
         }
         
         .cursor-gradient.moving {
-            width: 450px;
-            height: 450px;
-            animation: rotateGradient 6s linear infinite, pulseGradient 2s ease-in-out infinite, flowPattern 4s ease-in-out infinite;
+            width: 380px;
+            height: 380px;
+            animation: rotateGradient 6s linear infinite, pulseGradient 2s ease-in-out infinite, flowPattern 3s ease-in-out infinite, morphSize 4s ease-in-out infinite;
         }
         
         .cursor-gradient.hover {
-            width: 500px;
-            height: 500px;
+            width: 400px;
+            height: 400px;
             opacity: 1;
             animation: rotateGradient 5s linear infinite, pulseGradient 1.5s ease-in-out infinite;
         }
         
         .cursor-gradient.moving.hover {
-            width: 600px;
-            height: 600px;
-            animation: rotateGradient 4s linear infinite, pulseGradient 1s ease-in-out infinite, flowPattern 3s ease-in-out infinite;
+            width: 420px;
+            height: 420px;
+            animation: rotateGradient 4s linear infinite, pulseGradient 1s ease-in-out infinite, flowPattern 2.5s ease-in-out infinite, morphSize 3s ease-in-out infinite;
         }
         
         @keyframes rotateGradient {
@@ -113,17 +113,35 @@
         }
         
         @keyframes flowPattern {
-            0%, 100% {
+            0% {
                 background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
             }
-            25% {
-                background: radial-gradient(ellipse 120% 80%, rgba(139, 92, 246, 0.6) 0%, rgba(59, 130, 246, 0.4) 30%, rgba(139, 92, 246, 0.2) 50%, rgba(59, 130, 246, 0.1) 70%, transparent 100%);
+            16.66% {
+                background: radial-gradient(ellipse 150% 70%, rgba(139, 92, 246, 0.7) 0%, rgba(59, 130, 246, 0.5) 25%, rgba(139, 92, 246, 0.3) 45%, rgba(59, 130, 246, 0.15) 65%, transparent 85%);
+            }
+            33.33% {
+                background: radial-gradient(ellipse 70% 150%, rgba(59, 130, 246, 0.7) 0%, rgba(139, 92, 246, 0.5) 25%, rgba(59, 130, 246, 0.3) 45%, rgba(139, 92, 246, 0.15) 65%, transparent 85%);
             }
             50% {
-                background: radial-gradient(circle, rgba(59, 130, 246, 0.5) 0%, rgba(139, 92, 246, 0.5) 30%, rgba(59, 130, 246, 0.3) 50%, rgba(139, 92, 246, 0.15) 70%, transparent 100%);
+                background: radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, rgba(59, 130, 246, 0.5) 30%, rgba(139, 92, 246, 0.35) 50%, rgba(59, 130, 246, 0.2) 70%, transparent 100%);
             }
-            75% {
-                background: radial-gradient(ellipse 80% 120%, rgba(139, 92, 246, 0.6) 0%, rgba(59, 130, 246, 0.4) 30%, rgba(139, 92, 246, 0.2) 50%, rgba(59, 130, 246, 0.1) 70%, transparent 100%);
+            66.66% {
+                background: radial-gradient(ellipse 130% 90%, rgba(59, 130, 246, 0.65) 0%, rgba(139, 92, 246, 0.45) 28%, rgba(59, 130, 246, 0.25) 48%, rgba(139, 92, 246, 0.12) 68%, transparent 88%);
+            }
+            83.33% {
+                background: radial-gradient(ellipse 90% 130%, rgba(139, 92, 246, 0.65) 0%, rgba(59, 130, 246, 0.45) 28%, rgba(139, 92, 246, 0.25) 48%, rgba(59, 130, 246, 0.12) 68%, transparent 88%);
+            }
+            100% {
+                background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
+            }
+        }
+        
+        @keyframes morphSize {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
             }
         }
     </style>
@@ -433,9 +451,9 @@
             };
 
             const animate = () => {
-                // Gradually fade out when cursor stops (after 1 second of no movement)
+                // Gradually fade out when cursor stops (after 3 seconds of no movement)
                 const timeSinceMove = Date.now() - lastMoveTime;
-                if (timeSinceMove > 1000 && isMoving) {
+                if (timeSinceMove > 3000 && isMoving) {
                     isMoving = false;
                     gradient.classList.remove('visible');
                     gradient.classList.remove('moving');
