@@ -74,8 +74,10 @@ header h1 {
 }
 
 .subtitle-logo {
-    width: 18px;
-    height: 18px;
+    width: 18px !important;
+    height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
     object-fit: contain;
     flex-shrink: 0;
     display: inline-block;
