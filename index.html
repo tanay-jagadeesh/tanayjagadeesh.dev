@@ -50,67 +50,99 @@
             transition: transform 0.3s ease;
         }
 
-        /* Hide default cursor */
-        * {
-            cursor: none !important;
-        }
-        
-        /* Clean cursor with dot and trailing glow - inspired but unique */
-        .cursor-dot {
+        /* Gradient trail cursor with morphing effects */
+        .cursor-gradient {
             position: fixed;
-            width: 8px;
-            height: 8px;
-            background: rgba(59, 130, 246, 0.9);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease, opacity 0.2s ease;
+            filter: blur(50px);
+            transition: opacity 2.5s ease-out, width 0.3s ease, height 0.3s ease;
             opacity: 0;
-            will-change: transform, opacity;
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+            will-change: transform, opacity, width, height;
         }
         
-        .cursor-dot.visible {
+        .cursor-gradient.visible {
+            opacity: 0.8;
+            transition: opacity 0.3s ease-in, width 0.3s ease, height 0.3s ease;
+            animation: rotateGradient 8s linear infinite, pulseGradient 3s ease-in-out infinite;
+        }
+        
+        .cursor-gradient.moving {
+            width: 380px;
+            height: 380px;
+            animation: rotateGradient 6s linear infinite, pulseGradient 2s ease-in-out infinite, flowPattern 3s ease-in-out infinite, morphSize 4s ease-in-out infinite;
+        }
+        
+        .cursor-gradient.hover {
+            width: 400px;
+            height: 400px;
             opacity: 1;
+            animation: rotateGradient 5s linear infinite, pulseGradient 1.5s ease-in-out infinite;
         }
         
-        .cursor-dot.hover {
-            width: 32px;
-            height: 32px;
-            background: rgba(59, 130, 246, 0.3);
-            box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.2), 0 0 0 16px rgba(139, 92, 246, 0.1);
+        .cursor-gradient.moving.hover {
+            width: 420px;
+            height: 420px;
+            animation: rotateGradient 4s linear infinite, pulseGradient 1s ease-in-out infinite, flowPattern 2.5s ease-in-out infinite, morphSize 3s ease-in-out infinite;
         }
         
-        .cursor-glow {
-            position: fixed;
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-            filter: blur(20px);
-            transition: opacity 0.4s ease, width 0.4s ease, height 0.4s ease;
-            opacity: 0;
-            will-change: transform, opacity;
+        @keyframes rotateGradient {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) scale(1);
+            }
         }
         
-        .cursor-glow.visible {
-            opacity: 1;
+        @keyframes pulseGradient {
+            0%, 100% {
+                filter: blur(50px);
+            }
+            50% {
+                filter: blur(60px);
+            }
         }
         
-        .cursor-glow.moving {
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.15) 40%, transparent 70%);
+        @keyframes flowPattern {
+            0% {
+                background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
+            }
+            16.66% {
+                background: radial-gradient(ellipse 150% 70%, rgba(139, 92, 246, 0.7) 0%, rgba(59, 130, 246, 0.5) 25%, rgba(139, 92, 246, 0.3) 45%, rgba(59, 130, 246, 0.15) 65%, transparent 85%);
+            }
+            33.33% {
+                background: radial-gradient(ellipse 70% 150%, rgba(59, 130, 246, 0.7) 0%, rgba(139, 92, 246, 0.5) 25%, rgba(59, 130, 246, 0.3) 45%, rgba(139, 92, 246, 0.15) 65%, transparent 85%);
+            }
+            50% {
+                background: radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, rgba(59, 130, 246, 0.5) 30%, rgba(139, 92, 246, 0.35) 50%, rgba(59, 130, 246, 0.2) 70%, transparent 100%);
+            }
+            66.66% {
+                background: radial-gradient(ellipse 130% 90%, rgba(59, 130, 246, 0.65) 0%, rgba(139, 92, 246, 0.45) 28%, rgba(59, 130, 246, 0.25) 48%, rgba(139, 92, 246, 0.12) 68%, transparent 88%);
+            }
+            83.33% {
+                background: radial-gradient(ellipse 90% 130%, rgba(139, 92, 246, 0.65) 0%, rgba(59, 130, 246, 0.45) 28%, rgba(139, 92, 246, 0.25) 48%, rgba(59, 130, 246, 0.12) 68%, transparent 88%);
+            }
+            100% {
+                background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
+            }
         }
         
-        .cursor-glow.hover {
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(139, 92, 246, 0.2) 40%, transparent 70%);
+        @keyframes morphSize {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+            }
         }
     </style>
 </head>
@@ -280,9 +312,8 @@
         </footer>
     </div>
 
-    <!-- Clean cursor with dot and glow -->
-    <div class="cursor-dot" id="cursorDot"></div>
-    <div class="cursor-glow" id="cursorGlow"></div>
+    <!-- Gradient trail cursor with morphing effects -->
+    <div class="cursor-gradient" id="cursorGradient"></div>
 
     <script>
         // Dark mode toggle
@@ -346,37 +377,28 @@
             });
         })();
 
-        // Clean cursor with dot and glow - inspired but unique
+        // Magnetic gradient cursor with morphing effects
         (function() {
-            const dot = document.getElementById('cursorDot');
-            const glow = document.getElementById('cursorGlow');
+            const gradient = document.getElementById('cursorGradient');
             
-            if (!dot || !glow) {
-                console.error('Cursor elements not found', { dot, glow });
+            if (!gradient) {
+                console.error('Cursor gradient not found');
                 return;
             }
             
             let mouseX = window.innerWidth / 2;
             let mouseY = window.innerHeight / 2;
-            let dotX = mouseX;
-            let dotY = mouseY;
-            let glowX = mouseX;
-            let glowY = mouseY;
+            let gradientX = mouseX;
+            let gradientY = mouseY;
             let isHovering = false;
             let isMoving = false;
             let lastMoveTime = Date.now();
             let targetX = mouseX;
             let targetY = mouseY;
 
-            // Initialize positions and show cursor
-            dot.style.left = mouseX + 'px';
-            dot.style.top = mouseY + 'px';
-            glow.style.left = mouseX + 'px';
-            glow.style.top = mouseY + 'px';
-            
-            // Show cursor immediately
-            dot.classList.add('visible');
-            glow.classList.add('visible');
+            // Initialize position
+            gradient.style.left = mouseX + 'px';
+            gradient.style.top = mouseY + 'px';
 
             // Get all interactive elements for magnetic effect
             const getInteractiveElements = () => {
@@ -399,17 +421,14 @@
                 isMoving = true;
                 lastMoveTime = Date.now();
                 
-                // Show cursor when moving
-                if (!dot.classList.contains('visible')) {
-                    dot.classList.add('visible');
-                }
-                if (!glow.classList.contains('visible')) {
-                    glow.classList.add('visible');
+                // Show gradient when moving
+                if (!gradient.classList.contains('visible')) {
+                    gradient.classList.add('visible');
                 }
                 
-                // Add moving class for larger glow
-                if (!glow.classList.contains('moving')) {
-                    glow.classList.add('moving');
+                // Add moving class for larger trail
+                if (!gradient.classList.contains('moving')) {
+                    gradient.classList.add('moving');
                 }
             };
 
@@ -424,11 +443,9 @@
                 if (interactive !== isHovering) {
                     isHovering = interactive;
                     if (isHovering) {
-                        dot.classList.add('hover');
-                        glow.classList.add('hover');
+                        gradient.classList.add('hover');
                     } else {
-                        dot.classList.remove('hover');
-                        glow.classList.remove('hover');
+                        gradient.classList.remove('hover');
                     }
                 }
             };
@@ -438,9 +455,8 @@
                 const timeSinceMove = Date.now() - lastMoveTime;
                 if (timeSinceMove > 3000 && isMoving) {
                     isMoving = false;
-                    dot.classList.remove('visible');
-                    glow.classList.remove('visible');
-                    glow.classList.remove('moving');
+                    gradient.classList.remove('visible');
+                    gradient.classList.remove('moving');
                 }
                 
                 // Magnetic attraction to interactive elements
@@ -478,17 +494,15 @@
                     magneticY = mouseY;
                 }
 
-                // Smooth trailing effect - dot follows closely, glow trails more
-                dotX += (magneticX - dotX) * 0.2;
-                dotY += (magneticY - dotY) * 0.2;
+                // Smooth trailing effect with magnetic influence
+                targetX = magneticX;
+                targetY = magneticY;
                 
-                glowX += (magneticX - glowX) * 0.1;
-                glowY += (magneticY - glowY) * 0.1;
+                gradientX += (targetX - gradientX) * 0.15;
+                gradientY += (targetY - gradientY) * 0.15;
 
-                dot.style.left = dotX + 'px';
-                dot.style.top = dotY + 'px';
-                glow.style.left = glowX + 'px';
-                glow.style.top = glowY + 'px';
+                gradient.style.left = gradientX + 'px';
+                gradient.style.top = gradientY + 'px';
 
                 requestAnimationFrame(animate);
             };
