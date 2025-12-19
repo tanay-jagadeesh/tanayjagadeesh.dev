@@ -250,8 +250,9 @@
             const moonIcon = document.getElementById('moonIcon');
             const html = document.documentElement;
             
-            // Check for saved theme preference or default to light mode
-            const currentTheme = localStorage.getItem('theme') || 'light';
+            // Default to light mode - only use dark if explicitly saved
+            const savedTheme = localStorage.getItem('theme');
+            const currentTheme = (savedTheme === 'dark') ? 'dark' : 'light';
             html.setAttribute('data-theme', currentTheme);
             
             // Update icon based on theme
