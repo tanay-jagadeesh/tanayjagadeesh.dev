@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life - Tanay Jagadeesh</title>
+    <meta name="description" content="Beyond code - basketball and life">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Dark mode toggle button styles */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .dark-mode-toggle {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--text-color);
+        }
+
+        .dark-mode-toggle svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Gradient trail cursor - covers large area */
+        .cursor-gradient {
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            filter: blur(50px);
+            transition: opacity 0.2s ease;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+        
+        .cursor-gradient.visible {
+            opacity: 0.8;
+        }
+        
+        .cursor-gradient.hover {
+            width: 350px;
+            height: 350px;
+            opacity: 1;
+        }
+
+        /* Photo gallery styles */
+        .photo-gallery {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .gallery-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .gallery-description {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .gallery-main {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+        }
+
+        [data-theme="dark"] .gallery-main {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-main {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .gallery-main video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .gallery-dot.active {
+            background: var(--text-color);
+            transform: scale(1.2);
+        }
+
+        .gallery-dot:hover {
+            background: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark mode toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+    </button>
+
+    <nav class="sidebar">
+        <a href="index.html">home</a>
+        <a href="index.html#about">about</a>
+        <a href="index.html#experience">experience</a>
+        <a href="index.html#projects">projects</a>
+        <a href="life.html">life</a>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Life</h1>
+            <p class="subtitle">beyond code</p>
+        </header>
+
+        <div class="photo-gallery fade-in">
+            <h2 class="gallery-title">Team</h2>
+            <p class="gallery-description">When I'm not coding, you'll find me on the court. The discipline, teamwork, and focus from basketball translate directly to how I approach software engineering. These photos are from my senior year.</p>
+            
+            <div class="gallery-main">
+                <img id="mainImage" src="images/team/ss1.JPG" alt="Team photo">
+            </div>
+
+            <div class="gallery-controls" id="galleryControls"></div>
+        </div>
+
+        <div class="photo-gallery fade-in" style="margin-top: 80px;">
+            <h2 class="gallery-title">Basketball Highlights</h2>
+            <p class="gallery-description">Some of my favorite moments on the court from my senior year.</p>
+            
+            <div class="gallery-main">
+                <video id="galleryVideo" autoplay muted loop>
+                    <source src="videos/ScreenRecording_12-17-2024 15-33-36_1.MP4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="gallery-controls" id="videoControls"></div>
+            
+            <p style="margin-top: 32px; font-style: italic; color: var(--text-secondary); text-align: center; font-size: 14px;">
+                p.s. i like working out now — keeps me motivated (and helps me not feel imposter syndrome or something like that)
+            </p>
+        </div>
+    </div>
+
+    <!-- Gradient trail cursor -->
+    <div class="cursor-gradient" id="cursorGradient"></div>
+
+    <script>
+        // Dark mode toggle
+        (function() {
+            const toggle = document.getElementById('darkModeToggle');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            const html = document.documentElement;
+            
+            // Check for saved theme preference or default to light mode
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-theme', currentTheme);
+            
+            // Update icon based on theme
+            if (currentTheme === 'dark') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+            
+            toggle.addEventListener('click', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Toggle icons
+                if (newTheme === 'dark') {
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                } else {
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                }
+            });
+        })();
+
+        // Smooth scroll animations
+        (function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all gallery sections
+            document.querySelectorAll('.photo-gallery').forEach(el => {
+                el.classList.add('fade-in');
+                observer.observe(el);
+            });
+        })();
+
+        // Photo gallery with auto-loop
+        const images = [
+            'images/team/ss1.JPG',
+            'images/team/ss2.JPG',
+            'images/team/ss3.JPG'
+        ];
+
+        const mainImage = document.getElementById('mainImage');
+        const controlsContainer = document.getElementById('galleryControls');
+        let currentImageIndex = 0;
+        let autoPlayTimeout;
+
+        // Create dots for each image
+        images.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
+            dot.addEventListener('click', () => showImage(index));
+            controlsContainer.appendChild(dot);
+        });
+
+        function showImage(index) {
+            currentImageIndex = index;
+            mainImage.src = images[index];
+
+            // Update active dot
+            document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            // Reset auto-play timer
+            clearTimeout(autoPlayTimeout);
+            autoPlayTimeout = setTimeout(() => {
+                nextImage();
+            }, 4000); // Switch every 4 seconds
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            showImage(currentImageIndex);
+        }
+
+        // Start auto-loop for photos
+        autoPlayTimeout = setTimeout(() => {
+            nextImage();
+        }, 4000);
+
+        // Video gallery with auto-loop
+        const videos = [
+            'videos/ScreenRecording_12-17-2024 15-33-36_1.MP4',
+            'videos/ScreenRecording_12-17-2024 15-25-35_1.MP4',
+            'videos/ScreenRecording_12-17-2024 15-35-47_1.MP4'
+        ];
+
+        const videoElement = document.getElementById('galleryVideo');
+        const videoControlsContainer = document.getElementById('videoControls');
+        let currentVideoIndex = 0;
+        let videoAutoPlayTimeout;
+
+        // Create dots for each video
+        videos.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
+            dot.addEventListener('click', () => switchVideo(index));
+            videoControlsContainer.appendChild(dot);
+        });
+
+        function switchVideo(index) {
+            currentVideoIndex = index;
+            videoElement.src = videos[index];
+            videoElement.load();
+            videoElement.play();
+
+            // Update active dot
+            document.querySelectorAll('#videoControls .gallery-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            // Reset auto-play timer
+            clearTimeout(videoAutoPlayTimeout);
+            videoAutoPlayTimeout = setTimeout(() => {
+                nextVideo();
+            }, 8000); // Switch every 8 seconds
+        }
+
+        function nextVideo() {
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            switchVideo(currentVideoIndex);
+        }
+
+        // Auto-loop through videos
+        videoElement.addEventListener('ended', () => {
+            nextVideo();
+        });
+
+        // Start auto-play for videos
+        videoAutoPlayTimeout = setTimeout(() => {
+            nextVideo();
+        }, 8000);
+
+        // Gradient trail cursor
+        (function() {
+            const gradient = document.getElementById('cursorGradient');
+            
+            if (!gradient) return;
+            
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let gradientX = mouseX;
+            let gradientY = mouseY;
+            let isHovering = false;
+            let isMoving = false;
+            let lastMoveTime = 0;
+
+            gradient.style.left = mouseX + 'px';
+            gradient.style.top = mouseY + 'px';
+
+            const updateMouse = (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                isMoving = true;
+                lastMoveTime = Date.now();
+                
+                if (!gradient.classList.contains('visible')) {
+                    gradient.classList.add('visible');
+                }
+            };
+
+            const checkHover = (e) => {
+                const target = e.target;
+                const interactive = target.tagName === 'A' || 
+                                   target.tagName === 'BUTTON' || 
+                                   target.closest('a') !== null || 
+                                   target.closest('button') !== null ||
+                                   window.getComputedStyle(target).cursor === 'pointer';
+                
+                if (interactive !== isHovering) {
+                    isHovering = interactive;
+                    if (isHovering) {
+                        gradient.classList.add('hover');
+                    } else {
+                        gradient.classList.remove('hover');
+                    }
+                }
+            };
+
+            const animate = () => {
+                const timeSinceMove = Date.now() - lastMoveTime;
+                if (timeSinceMove > 50 && isMoving) {
+                    isMoving = false;
+                    gradient.classList.remove('visible');
+                }
+                
+                gradientX += (mouseX - gradientX) * 0.1;
+                gradientY += (mouseY - gradientY) * 0.1;
+
+                gradient.style.left = gradientX + 'px';
+                gradient.style.top = gradientY + 'px';
+
+                requestAnimationFrame(animate);
+            };
+
+            document.addEventListener('mousemove', updateMouse);
+            document.addEventListener('mouseover', checkHover);
+            document.addEventListener('mouseout', checkHover);
+            
+            animate();
+        })();
+    </script>
+</body>
+</html>
+
