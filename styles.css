@@ -174,39 +174,6 @@ body {
     color: #000;
 }
 
-.music-toggle {
-    font-family: 'Poppins', sans-serif;
-    background: transparent;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #999;
-    transition: all 0.2s ease;
-    margin-top: 8px;
-    padding: 0;
-}
-
-.music-toggle:hover {
-    color: #000;
-    border-color: #000;
-    transform: scale(1.1);
-}
-
-[data-theme="dark"] .music-toggle {
-    border-color: #444;
-    color: #999;
-}
-
-[data-theme="dark"] .music-toggle:hover {
-    color: #ededed;
-    border-color: #ededed;
-}
-
 .container {
     max-width: 650px;
     margin: 0 auto;
