@@ -50,7 +50,7 @@
             transition: transform 0.3s ease;
         }
 
-        /* Gradient trail cursor with morphing effects */
+        /* Gradient trail cursor with morphing effects - now seasonal */
         .cursor-gradient {
             position: fixed;
             width: 250px;
@@ -61,7 +61,7 @@
             z-index: 9999;
             transform: translate(-50%, -50%);
             filter: blur(45px);
-            transition: opacity 5s ease-out, width 0.3s ease, height 0.3s ease;
+            transition: opacity 5s ease-out, width 0.3s ease, height 0.3s ease, background 0.5s ease;
             opacity: 0;
             will-change: transform, opacity, width, height;
         }
@@ -114,25 +114,25 @@
         
         @keyframes flowPattern {
             0% {
-                background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
+                background: var(--seasonal-gradient-0, radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%));
             }
             16.66% {
-                background: radial-gradient(ellipse 150% 70%, rgba(139, 92, 246, 0.7) 0%, rgba(59, 130, 246, 0.5) 25%, rgba(139, 92, 246, 0.3) 45%, rgba(59, 130, 246, 0.15) 65%, transparent 85%);
+                background: var(--seasonal-gradient-1, radial-gradient(ellipse 150% 70%, rgba(139, 92, 246, 0.7) 0%, rgba(59, 130, 246, 0.5) 25%, rgba(139, 92, 246, 0.3) 45%, rgba(59, 130, 246, 0.15) 65%, transparent 85%));
             }
             33.33% {
-                background: radial-gradient(ellipse 70% 150%, rgba(59, 130, 246, 0.7) 0%, rgba(139, 92, 246, 0.5) 25%, rgba(59, 130, 246, 0.3) 45%, rgba(139, 92, 246, 0.15) 65%, transparent 85%);
+                background: var(--seasonal-gradient-2, radial-gradient(ellipse 70% 150%, rgba(59, 130, 246, 0.7) 0%, rgba(139, 92, 246, 0.5) 25%, rgba(59, 130, 246, 0.3) 45%, rgba(139, 92, 246, 0.15) 65%, transparent 85%));
             }
             50% {
-                background: radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, rgba(59, 130, 246, 0.5) 30%, rgba(139, 92, 246, 0.35) 50%, rgba(59, 130, 246, 0.2) 70%, transparent 100%);
+                background: var(--seasonal-gradient-3, radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, rgba(59, 130, 246, 0.5) 30%, rgba(139, 92, 246, 0.35) 50%, rgba(59, 130, 246, 0.2) 70%, transparent 100%));
             }
             66.66% {
-                background: radial-gradient(ellipse 130% 90%, rgba(59, 130, 246, 0.65) 0%, rgba(139, 92, 246, 0.45) 28%, rgba(59, 130, 246, 0.25) 48%, rgba(139, 92, 246, 0.12) 68%, transparent 88%);
+                background: var(--seasonal-gradient-4, radial-gradient(ellipse 130% 90%, rgba(59, 130, 246, 0.65) 0%, rgba(139, 92, 246, 0.45) 28%, rgba(59, 130, 246, 0.25) 48%, rgba(139, 92, 246, 0.12) 68%, transparent 88%));
             }
             83.33% {
-                background: radial-gradient(ellipse 90% 130%, rgba(139, 92, 246, 0.65) 0%, rgba(59, 130, 246, 0.45) 28%, rgba(139, 92, 246, 0.25) 48%, rgba(59, 130, 246, 0.12) 68%, transparent 88%);
+                background: var(--seasonal-gradient-5, radial-gradient(ellipse 90% 130%, rgba(139, 92, 246, 0.65) 0%, rgba(59, 130, 246, 0.45) 28%, rgba(139, 92, 246, 0.25) 48%, rgba(59, 130, 246, 0.12) 68%, transparent 88%));
             }
             100% {
-                background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%);
+                background: var(--seasonal-gradient-0, radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(59, 130, 246, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%));
             }
         }
         
@@ -145,6 +145,7 @@
             }
         }
     </style>
+    <style id="seasonal-inline-styles"></style>
 </head>
 <body>
     <!-- Dark mode toggle -->
@@ -316,6 +317,284 @@
     <div class="cursor-gradient" id="cursorGradient"></div>
 
     <script>
+        // Seasonal Theme Detection and Application
+        (function() {
+            function getSeasonalTheme() {
+                const now = new Date();
+                const month = now.getMonth() + 1; // 1-12
+                const day = now.getDate(); // 1-31
+
+                // Christmas: December 1-25
+                if (month === 12 && day >= 1 && day <= 25) {
+                    return {
+                        name: 'christmas',
+                        primary: '#dc2626', // red
+                        secondary: '#16a34a', // green
+                        accent: '#fbbf24', // gold
+                        gradient: 'radial-gradient(circle, rgba(220, 38, 38, 0.6) 0%, rgba(22, 163, 74, 0.4) 30%, rgba(251, 191, 36, 0.2) 50%, rgba(22, 163, 74, 0.1) 70%, transparent 100%)',
+                        decorations: '🎄 🎁 🍬 🎅',
+                    };
+                }
+
+                // Valentine's Day: February 1-14
+                if (month === 2 && day >= 1 && day <= 14) {
+                    return {
+                        name: 'valentines',
+                        primary: '#ec4899', // pink
+                        secondary: '#dc2626', // red
+                        accent: '#fdf2f8', // light pink
+                        gradient: 'radial-gradient(circle, rgba(236, 72, 153, 0.6) 0%, rgba(220, 38, 38, 0.4) 30%, rgba(253, 242, 248, 0.2) 50%, rgba(220, 38, 38, 0.1) 70%, transparent 100%)',
+                        decorations: '💕 💖 💗 🌹',
+                    };
+                }
+
+                // Halloween: October 1-31
+                if (month === 10) {
+                    return {
+                        name: 'halloween',
+                        primary: '#ea580c', // orange
+                        secondary: '#000000', // black
+                        accent: '#a855f7', // purple
+                        gradient: 'radial-gradient(circle, rgba(234, 88, 12, 0.6) 0%, rgba(0, 0, 0, 0.4) 30%, rgba(168, 85, 247, 0.2) 50%, rgba(0, 0, 0, 0.1) 70%, transparent 100%)',
+                        decorations: '🎃 👻 🕷️ 🦇',
+                    };
+                }
+
+                // Spring: March, April, May
+                if (month >= 3 && month <= 5) {
+                    return {
+                        name: 'spring',
+                        primary: '#86efac', // light green
+                        secondary: '#fbbf24', // yellow
+                        accent: '#f0abfc', // light purple
+                        gradient: 'radial-gradient(circle, rgba(134, 239, 172, 0.6) 0%, rgba(251, 191, 36, 0.4) 30%, rgba(240, 171, 252, 0.2) 50%, rgba(251, 191, 36, 0.1) 70%, transparent 100%)',
+                        decorations: '🌸 🌺 🌷 🦋',
+                    };
+                }
+
+                // Summer: June, July, August
+                if (month >= 6 && month <= 8) {
+                    return {
+                        name: 'summer',
+                        primary: '#38bdf8', // sky blue
+                        secondary: '#fbbf24', // yellow
+                        accent: '#fb7185', // rose
+                        gradient: 'radial-gradient(circle, rgba(56, 189, 248, 0.6) 0%, rgba(251, 191, 36, 0.4) 30%, rgba(251, 113, 133, 0.2) 50%, rgba(251, 191, 36, 0.1) 70%, transparent 100%)',
+                        decorations: '☀️ 🌊 🏖️ 🍉',
+                    };
+                }
+
+                // Fall: September, October, November
+                if (month >= 9 && month <= 11) {
+                    return {
+                        name: 'fall',
+                        primary: '#ea580c', // orange
+                        secondary: '#a16207', // dark yellow/brown
+                        accent: '#dc2626', // red
+                        gradient: 'radial-gradient(circle, rgba(234, 88, 12, 0.6) 0%, rgba(161, 98, 7, 0.4) 30%, rgba(220, 38, 38, 0.2) 50%, rgba(161, 98, 7, 0.1) 70%, transparent 100%)',
+                        decorations: '🍂 🍁 🎃 🦃',
+                    };
+                }
+
+                // Winter (default for January): Cool blues and purples
+                return {
+                    name: 'winter',
+                    primary: '#3b82f6', // blue
+                    secondary: '#8b5cf6', // purple
+                    accent: '#06b6d4', // cyan
+                    gradient: 'radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(6, 182, 212, 0.2) 50%, rgba(139, 92, 246, 0.1) 70%, transparent 100%)',
+                    decorations: '❄️ ⛄ 🧊 🌨️',
+                };
+            }
+
+            function applySeasonalTheme() {
+                const theme = getSeasonalTheme();
+                const root = document.documentElement;
+                
+                // Apply seasonal CSS variables
+                root.style.setProperty('--seasonal-primary', theme.primary);
+                root.style.setProperty('--seasonal-secondary', theme.secondary);
+                root.style.setProperty('--seasonal-accent', theme.accent);
+                
+                // Convert hex to RGB for rgba usage
+                function hexToRgb(hex) {
+                    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                    return result ? {
+                        r: parseInt(result[1], 16),
+                        g: parseInt(result[2], 16),
+                        b: parseInt(result[3], 16)
+                    } : null;
+                }
+
+                const primaryRgb = hexToRgb(theme.primary);
+                const secondaryRgb = hexToRgb(theme.secondary);
+                const accentRgb = hexToRgb(theme.accent);
+                
+                // Update cursor gradient with seasonal colors
+                const cursorGradient = document.getElementById('cursorGradient');
+                if (cursorGradient) {
+                    // Set the base gradient
+                    cursorGradient.style.background = theme.gradient;
+                    cursorGradient.style.transition = 'background 0.5s ease';
+                    
+                    // Also update the flow pattern animation to use seasonal colors
+                    const p1 = primaryRgb ? `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.6)` : 'rgba(59, 130, 246, 0.6)';
+                    const p2 = primaryRgb ? `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.4)` : 'rgba(59, 130, 246, 0.4)';
+                    const s1 = secondaryRgb ? `rgba(${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}, 0.6)` : 'rgba(139, 92, 246, 0.6)';
+                    const s2 = secondaryRgb ? `rgba(${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}, 0.4)` : 'rgba(139, 92, 246, 0.4)';
+                    
+                    // Inject seasonal flow pattern keyframes
+                    const flowPatternStyle = document.createElement('style');
+                    flowPatternStyle.id = 'seasonal-flow-pattern';
+                    flowPatternStyle.textContent = `
+                        @keyframes flowPattern {
+                            0% {
+                                background: radial-gradient(circle, ${p1} 0%, ${s2} 30%, ${p2} 50%, ${s2} 70%, transparent 100%);
+                            }
+                            16.66% {
+                                background: radial-gradient(ellipse 150% 70%, ${s1} 0%, ${p1} 25%, ${s2} 45%, ${p2} 65%, transparent 85%);
+                            }
+                            33.33% {
+                                background: radial-gradient(ellipse 70% 150%, ${p1} 0%, ${s1} 25%, ${p2} 45%, ${s2} 65%, transparent 85%);
+                            }
+                            50% {
+                                background: radial-gradient(circle, ${s1} 0%, ${p1} 30%, ${s2} 50%, ${p2} 70%, transparent 100%);
+                            }
+                            66.66% {
+                                background: radial-gradient(ellipse 130% 90%, ${p1} 0%, ${s1} 28%, ${p2} 48%, ${s2} 68%, transparent 88%);
+                            }
+                            83.33% {
+                                background: radial-gradient(ellipse 90% 130%, ${s1} 0%, ${p1} 28%, ${s2} 48%, ${p2} 68%, transparent 88%);
+                            }
+                            100% {
+                                background: radial-gradient(circle, ${p1} 0%, ${s2} 30%, ${p2} 50%, ${s2} 70%, transparent 100%);
+                            }
+                        }
+                    `;
+                    
+                    // Remove old flow pattern if exists
+                    const oldFlowPattern = document.getElementById('seasonal-flow-pattern');
+                    if (oldFlowPattern) {
+                        oldFlowPattern.remove();
+                    }
+                    document.head.appendChild(flowPatternStyle);
+                }
+
+                // Update links and interactive elements with seasonal colors
+                const style = document.createElement('style');
+                style.id = 'seasonal-theme-styles';
+                
+                // Generate seasonal flow pattern gradients for animation
+                
+                const p1 = primaryRgb ? `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.6)` : 'rgba(59, 130, 246, 0.6)';
+                const p2 = primaryRgb ? `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.4)` : 'rgba(59, 130, 246, 0.4)';
+                const s1 = secondaryRgb ? `rgba(${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}, 0.6)` : 'rgba(139, 92, 246, 0.6)';
+                const s2 = secondaryRgb ? `rgba(${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}, 0.4)` : 'rgba(139, 92, 246, 0.4)';
+                
+                style.textContent = `
+                    :root {
+                        --seasonal-primary: ${theme.primary};
+                        --seasonal-secondary: ${theme.secondary};
+                        --seasonal-accent: ${theme.accent};
+                        --seasonal-gradient-0: radial-gradient(circle, ${p1} 0%, ${s2} 30%, ${p2} 50%, ${s2} 70%, transparent 100%);
+                        --seasonal-gradient-1: radial-gradient(ellipse 150% 70%, ${s1} 0%, ${p1} 25%, ${s2} 45%, ${p2} 65%, transparent 85%);
+                        --seasonal-gradient-2: radial-gradient(ellipse 70% 150%, ${p1} 0%, ${s1} 25%, ${p2} 45%, ${s2} 65%, transparent 85%);
+                        --seasonal-gradient-3: radial-gradient(circle, ${s1} 0%, ${p1} 30%, ${s2} 50%, ${p2} 70%, transparent 100%);
+                        --seasonal-gradient-4: radial-gradient(ellipse 130% 90%, ${p1} 0%, ${s1} 28%, ${p2} 48%, ${s2} 68%, transparent 88%);
+                        --seasonal-gradient-5: radial-gradient(ellipse 90% 130%, ${s1} 0%, ${p1} 28%, ${s2} 48%, ${p2} 68%, transparent 88%);
+                    }
+                `;
+                
+                // Remove old seasonal styles if they exist
+                const oldStyle = document.getElementById('seasonal-theme-styles');
+                if (oldStyle) {
+                    oldStyle.remove();
+                }
+                
+                document.head.appendChild(style);
+                
+                // Add theme class to body
+                document.body.className = document.body.className.replace(/theme-\w+/g, '');
+                document.body.className += ' theme-' + theme.name;
+                
+                // Add animated banner with seasonal decorations
+                const existingDecorations = document.getElementById('seasonal-banner-decorations');
+                if (existingDecorations) {
+                    existingDecorations.remove();
+                }
+                
+                const decorationsContainer = document.createElement('div');
+                decorationsContainer.id = 'seasonal-banner-decorations';
+                
+                const decorations = theme.decorations || '✨';
+                const decorArray = decorations.split(' ').filter(d => d.trim());
+                
+                // Create scrolling banner effect
+                const bannerStyle = document.createElement('style');
+                bannerStyle.id = 'seasonal-banner-style';
+                bannerStyle.textContent = `
+                    #seasonal-banner-decorations {
+                        position: fixed;
+                        top: 0;
+                        left: 150px;
+                        right: 0;
+                        height: 50px;
+                        background: linear-gradient(90deg, ${theme.primary}15, ${theme.secondary}15, ${theme.primary}15);
+                        border-bottom: 1px solid ${theme.primary}30;
+                        overflow: hidden;
+                        z-index: 1;
+                        pointer-events: none;
+                    }
+                    
+                    .seasonal-scroll {
+                        display: flex;
+                        align-items: center;
+                        height: 100%;
+                        animation: scrollBanner 20s linear infinite;
+                        white-space: nowrap;
+                    }
+                    
+                    .seasonal-scroll span {
+                        font-size: 28px;
+                        margin: 0 30px;
+                        opacity: 0.4;
+                        display: inline-block;
+                    }
+                    
+                    @keyframes scrollBanner {
+                        0% {
+                            transform: translateX(0);
+                        }
+                        100% {
+                            transform: translateX(-50%);
+                        }
+                    }
+                `;
+                
+                // Remove old banner style if exists
+                const oldBannerStyle = document.getElementById('seasonal-banner-style');
+                if (oldBannerStyle) {
+                    oldBannerStyle.remove();
+                }
+                document.head.appendChild(bannerStyle);
+                
+                // Create duplicate content for seamless loop
+                const scrollContent = document.createElement('div');
+                scrollContent.className = 'seasonal-scroll';
+                const decorString = decorArray.join(' ').repeat(10); // Repeat for seamless scroll
+                scrollContent.innerHTML = decorArray.map(dec => `<span>${dec}</span>`).join('').repeat(2);
+                
+                decorationsContainer.appendChild(scrollContent);
+                document.body.appendChild(decorationsContainer);
+                
+                // Debug: log the theme
+                console.log('🎨 Seasonal theme applied:', theme.name, theme);
+            }
+
+            // Apply theme on page load
+            applySeasonalTheme();
+        })();
+
         // Dark mode toggle
         (function() {
             const toggle = document.getElementById('darkModeToggle');

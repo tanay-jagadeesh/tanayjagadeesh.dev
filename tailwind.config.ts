@@ -11,6 +11,11 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        seasonal: {
+          primary: "var(--seasonal-primary)",
+          secondary: "var(--seasonal-secondary)",
+          accent: "var(--seasonal-accent)",
+        },
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in',
