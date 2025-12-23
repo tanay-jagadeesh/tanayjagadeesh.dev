@@ -532,18 +532,23 @@
                 // Create scrolling banner effect
                 const bannerStyle = document.createElement('style');
                 bannerStyle.id = 'seasonal-banner-style';
+                
+                // Convert hex to rgba for background
+                const bgPrimary = primaryRgb ? `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.08)` : 'rgba(59, 130, 246, 0.08)';
+                const bgSecondary = secondaryRgb ? `rgba(${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}, 0.08)` : 'rgba(139, 92, 246, 0.08)';
+                const borderColor = primaryRgb ? `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.2)` : 'rgba(59, 130, 246, 0.2)';
+                
                 bannerStyle.textContent = `
                     #seasonal-banner-decorations {
-                        position: fixed;
-                        top: 0;
-                        left: 150px;
-                        right: 0;
+                        position: relative;
+                        width: 100%;
                         height: 50px;
-                        background: linear-gradient(90deg, ${theme.primary}15, ${theme.secondary}15, ${theme.primary}15);
-                        border-bottom: 1px solid ${theme.primary}30;
+                        background: linear-gradient(90deg, ${bgPrimary}, ${bgSecondary}, ${bgPrimary});
+                        border-bottom: 1px solid ${borderColor};
                         overflow: hidden;
                         z-index: 1;
                         pointer-events: none;
+                        margin-bottom: 20px;
                     }
                     
                     .seasonal-scroll {
@@ -552,12 +557,13 @@
                         height: 100%;
                         animation: scrollBanner 20s linear infinite;
                         white-space: nowrap;
+                        width: fit-content;
                     }
                     
                     .seasonal-scroll span {
                         font-size: 28px;
                         margin: 0 30px;
-                        opacity: 0.4;
+                        opacity: 0.5;
                         display: inline-block;
                     }
                     
@@ -585,7 +591,15 @@
                 scrollContent.innerHTML = decorArray.map(dec => `<span>${dec}</span>`).join('').repeat(2);
                 
                 decorationsContainer.appendChild(scrollContent);
-                document.body.appendChild(decorationsContainer);
+                
+                // Insert banner right before the header (above Tanay Jagadeesh)
+                const container = document.querySelector('.container');
+                const header = document.querySelector('header');
+                if (container && header) {
+                    container.insertBefore(decorationsContainer, header);
+                } else {
+                    document.body.appendChild(decorationsContainer);
+                }
                 
                 // Debug: log the theme
                 console.log('🎨 Seasonal theme applied:', theme.name, theme);
@@ -594,6 +608,7 @@
             // Apply theme on page load
             applySeasonalTheme();
         })();
+
 
         // Dark mode toggle
         (function() {
