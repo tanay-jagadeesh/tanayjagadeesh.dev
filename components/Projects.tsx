@@ -4,7 +4,7 @@ const projects = [
   {
     title: "Signature Forgery Detection [Currently Building]",
     description: "Deep learning system for detecting forged signatures using convolutional neural networks.",
-    tech: ["Python", "PyTorch", "CNN", "Computer Vision"],
+    tech: ["Python", "PyTorch", "torchvision", "CNN", "scikit-learn", "matplotlib"],
     github: "https://github.com/tanay-jagadeesh/signature-forge-or-not",
     highlights: [
       "Convolutional neural network architecture",

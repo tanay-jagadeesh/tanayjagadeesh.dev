@@ -304,8 +304,8 @@ section a {
 /* Projects Grid */
 #projects .projects-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 24px !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
     margin-top: 24px;
     width: 100%;
 }
