@@ -10,15 +10,15 @@
         if (!canvas) return;
 
         const SIM_RESOLUTION = 128;
-        const DYE_RESOLUTION = 1440;
+        const DYE_RESOLUTION = 900;  // Reduced from 1440 - less prominent
         const CAPTURE_RESOLUTION = 512;
-        const DENSITY_DISSIPATION = 1.5;  // Reduced from 3.5 - makes effect last longer
-        const VELOCITY_DISSIPATION = 1.2;  // Reduced from 2 - makes velocity last longer
+        const DENSITY_DISSIPATION = 2.5;  // Increased - fades faster, less distracting
+        const VELOCITY_DISSIPATION = 2.0;  // Increased - fades faster
         const PRESSURE = 0.1;
         const PRESSURE_ITERATIONS = 20;
-        const CURL = 3;
-        const SPLAT_RADIUS = 0.35;  // Increased from 0.2 - covers larger area
-        const SPLAT_FORCE = 6000;
+        const CURL = 2;  // Reduced from 3 - less curl, more subtle
+        const SPLAT_RADIUS = 0.25;  // Reduced from 0.35 - smaller area
+        const SPLAT_FORCE = 4000;  // Reduced from 6000 - less intense
         const SHADING = true;
         const COLOR_UPDATE_SPEED = 10;
         const BACK_COLOR = { r: 0.5, g: 0, b: 0 };
@@ -801,11 +801,11 @@
 
         function clickSplat(pointer) {
             const color = generateColor();
-            color.r *= 10.0;
-            color.g *= 10.0;
-            color.b *= 10.0;
-            let dx = 10 * (Math.random() - 0.5);
-            let dy = 30 * (Math.random() - 0.5);
+            color.r *= 5.0;  // Reduced from 10.0 - less intense on click
+            color.g *= 5.0;
+            color.b *= 5.0;
+            let dx = 6 * (Math.random() - 0.5);  // Reduced from 10
+            let dy = 18 * (Math.random() - 0.5);  // Reduced from 30
             splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
         }
 
@@ -873,9 +873,9 @@
 
         function generateColor() {
             let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-            c.r *= 0.15;
-            c.g *= 0.15;
-            c.b *= 0.15;
+            c.r *= 0.08;  // Reduced from 0.15 - much more subtle
+            c.g *= 0.08;
+            c.b *= 0.08;
             return c;
         }
 
