@@ -500,7 +500,10 @@
                 
                 accentStyle.textContent = `
                     #seasonal-banner-decorations {
-                        position: relative;
+                        position: fixed;
+                        top: 30px;
+                        left: 50%;
+                        transform: translateX(-50%);
                         width: fit-content;
                         height: auto;
                         background: linear-gradient(90deg, ${bgColor1}, ${bgColor2}, ${bgColor1}),
@@ -509,11 +512,10 @@
                         background-blend-mode: overlay;
                         border-top: 2px solid ${borderColor1};
                         border-bottom: 2px solid ${borderColor1};
-                        margin: 0 auto;
+                        margin: 0;
                         opacity: 1;
                         pointer-events: auto;
-                        z-index: 1;
-                        position: relative;
+                        z-index: 1000;
                         overflow: visible;
                         box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15), 0 2px 10px rgba(139, 92, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
                         backdrop-filter: blur(10px);
@@ -692,6 +694,24 @@
                                 rgba(255, 255, 255, 0.01) 4px
                             );
                     }
+                    
+                    @media (max-width: 768px) {
+                        #seasonal-banner-decorations {
+                            top: 15px;
+                            gap: 20px;
+                            padding: 10px 12px;
+                        }
+                        
+                        #seasonal-banner-decorations .nav-icon {
+                            width: 40px;
+                            height: 40px;
+                        }
+                        
+                        #seasonal-banner-decorations .nav-icon svg {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
                 `;
                 
                 // Remove old banner style if exists
@@ -742,18 +762,8 @@
                 `;
                 accentContainer.innerHTML = navIcons;
                 
-                // Insert elegant accent line right before the header
-                const container = document.querySelector('.container');
-                const header = document.querySelector('header');
-                if (container && header) {
-                    // Wrap banner in a centered container to align with header
-                    const bannerWrapper = document.createElement('div');
-                    bannerWrapper.style.cssText = 'width: 100%; text-align: center; margin-bottom: 40px;';
-                    bannerWrapper.appendChild(accentContainer);
-                    container.insertBefore(bannerWrapper, header);
-                } else {
-                    document.body.appendChild(accentContainer);
-                }
+                // Insert fixed banner at the top of the page
+                document.body.insertBefore(accentContainer, document.body.firstChild);
                 
                 // Debug: log the theme
                 console.log('🎨 Seasonal theme applied:', theme.name, theme);
@@ -816,8 +826,8 @@
                     if (target) {
                         e.preventDefault();
                         
-                        // Calculate offset (account for any fixed headers)
-                        const offset = 80;
+                        // Calculate offset (account for fixed banner)
+                        const offset = 120;
                         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
                         
                         // Smooth scroll with easing
@@ -878,7 +888,7 @@
                     const target = document.querySelector(hash);
                     if (target) {
                         setTimeout(() => {
-                            const offset = 80;
+                            const offset = 120;
                             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
                             window.scrollTo({
                                 top: targetPosition,
