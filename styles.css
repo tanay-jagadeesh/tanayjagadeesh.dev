@@ -949,55 +949,34 @@ header a:hover,
 
 /* Featured Project Card - CodeClash */
 .project-card-featured {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(139, 92, 246, 0.03) 50%, rgba(59, 130, 246, 0.03) 100%);
-    border: 2px solid rgba(59, 130, 246, 0.2);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
     box-shadow: 
-        0 8px 32px rgba(59, 130, 246, 0.15),
-        0 4px 16px rgba(139, 92, 246, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9),
-        inset 0 -1px 0 rgba(59, 130, 246, 0.1);
+        0 1px 3px rgba(0, 0, 0, 0.05),
+        0 4px 12px rgba(0, 0, 0, 0.04);
     position: relative;
     overflow: visible;
 }
 
 .project-card-featured::before {
-    opacity: 1 !important;
-    height: 4px;
-    background: linear-gradient(90deg, 
-        rgba(59, 130, 246, 0.8) 0%, 
-        rgba(139, 92, 246, 0.8) 25%,
-        rgba(59, 130, 246, 0.8) 50%,
-        rgba(139, 92, 246, 0.8) 75%,
-        rgba(59, 130, 246, 0.8) 100%);
-    animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
+    display: none;
 }
 
 .project-card-featured::after {
-    background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 60%);
-    opacity: 1;
+    display: none;
 }
 
 .project-card-featured:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: 
-        0 16px 48px rgba(59, 130, 246, 0.25),
-        0 8px 24px rgba(139, 92, 246, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 1),
-        inset 0 -1px 0 rgba(59, 130, 246, 0.2);
-    border-color: rgba(59, 130, 246, 0.4);
+        0 4px 12px rgba(0, 0, 0, 0.08),
+        0 8px 24px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.08);
 }
 
 .featured-title {
     display: inline-block;
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #0f172a;
     font-weight: 700;
     letter-spacing: -0.03em;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -1006,131 +985,143 @@ header a:hover,
 .featured-badge {
     display: inline-block;
     margin-left: 12px;
-    padding: 4px 12px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    border-radius: 12px;
+    padding: 4px 10px;
+    background: #f8fafc;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
     font-size: 12px;
     font-weight: 600;
-    color: #3b82f6;
+    color: #475569;
     text-transform: lowercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+    letter-spacing: 0.02em;
+    box-shadow: none;
 }
 
 .project-link-featured {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-    border-color: rgba(59, 130, 246, 0.2);
+    background: #f8fafc;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #334155;
 }
 
 .project-link-featured:hover {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-    border-color: rgba(59, 130, 246, 0.5);
-    box-shadow: 
-        0 6px 20px rgba(59, 130, 246, 0.4),
-        0 0 0 4px rgba(59, 130, 246, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    background: #f1f5f9;
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #0f172a;
+    transform: none;
+}
+
+.project-link-featured:hover svg {
+    transform: none;
+    filter: none;
 }
 
 .project-video-container-featured {
     width: 100%;
     margin-bottom: 24px;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     position: relative;
     background: #000;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease;
     z-index: 1;
 }
 
 .project-card-featured:hover .project-video-container-featured {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
 }
 
 .project-video-featured {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 12px;
+    border-radius: 8px;
     background: #000;
 }
 
 .tech-tag-featured {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%);
-    border-color: rgba(59, 130, 246, 0.25);
-    color: #2563eb;
-    font-weight: 600;
+    background: #f8fafc;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #475569;
+    font-weight: 500;
 }
 
 .project-card-featured:hover .tech-tag-featured {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-    border-color: rgba(59, 130, 246, 0.4);
-    color: #3b82f6;
-    transform: translateY(-1px);
+    background: #f1f5f9;
+    border-color: rgba(0, 0, 0, 0.12);
+    color: #334155;
+    transform: none;
 }
 
 [data-theme="dark"] .project-card-featured {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 50%, rgba(59, 130, 246, 0.08) 100%);
-    border-color: rgba(96, 165, 250, 0.3);
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow: 
-        0 8px 32px rgba(59, 130, 246, 0.25),
-        0 4px 16px rgba(139, 92, 246, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        inset 0 -1px 0 rgba(96, 165, 250, 0.2);
+        0 1px 3px rgba(0, 0, 0, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .project-card-featured::before {
-    background: linear-gradient(90deg, 
-        rgba(96, 165, 250, 0.9) 0%, 
-        rgba(139, 92, 246, 0.9) 25%,
-        rgba(96, 165, 250, 0.9) 50%,
-        rgba(139, 92, 246, 0.9) 75%,
-        rgba(96, 165, 250, 0.9) 100%);
+    display: none;
 }
 
 [data-theme="dark"] .project-card-featured:hover {
     box-shadow: 
-        0 16px 48px rgba(59, 130, 246, 0.35),
-        0 8px 24px rgba(139, 92, 246, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        inset 0 -1px 0 rgba(96, 165, 250, 0.3);
-    border-color: rgba(96, 165, 250, 0.5);
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="dark"] .featured-title {
-    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #f8fafc;
 }
 
 [data-theme="dark"] .featured-badge {
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-    border-color: rgba(96, 165, 250, 0.4);
-    color: #60a5fa;
-    box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+    background: #1f2937;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #9ca3af;
+    box-shadow: none;
+}
+
+[data-theme="dark"] .project-link-featured {
+    background: #1f2937;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .project-link-featured:hover {
+    background: #374151;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    color: #f3f4f6;
+    transform: none;
+}
+
+[data-theme="dark"] .project-link-featured:hover svg {
+    transform: none;
+    filter: none;
 }
 
 [data-theme="dark"] .project-video-container-featured {
     background: #000;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 [data-theme="dark"] .project-card-featured:hover .project-video-container-featured {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 [data-theme="dark"] .tech-tag-featured {
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
-    border-color: rgba(96, 165, 250, 0.3);
-    color: #93c5fd;
+    background: #1f2937;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #9ca3af;
 }
 
 [data-theme="dark"] .project-card-featured:hover .tech-tag-featured {
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%);
-    border-color: rgba(96, 165, 250, 0.5);
-    color: #60a5fa;
+    background: #374151;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #d1d5db;
 }
 
 .project-card:hover .project-description {
