@@ -960,16 +960,21 @@ header a:hover,
 }
 
 /* Projects Grid */
-#projects .projects-grid {
+.projects-grid {
     display: grid !important;
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 20px !important;
     margin-top: 24px;
     width: 100%;
 }
 
-#projects .projects-grid .project-card {
+.projects-grid .project-card {
     margin-bottom: 0 !important;
+}
+
+/* Featured project card stays full width */
+.project-card-featured {
+    margin-bottom: 24px !important;
 }
 
 /* Project Cards - Aesthetic Design */
@@ -1584,10 +1589,10 @@ footer a {
 /* Responsive */
 @media (max-width: 968px) {
     .projects-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         gap: 20px;
     }
-    
+
     .container {
         max-width: 650px;
     }
