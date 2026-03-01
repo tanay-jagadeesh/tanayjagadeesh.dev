@@ -28,20 +28,6 @@ const experiences = [
       "Designed and developed core features from scratch"
     ],
     skills: ["Git", "Python", "+6 skills"]
-  },
-  {
-    title: "Software Developer",
-    company: "Jags IT Consulting",
-    type: "Contract Part-time",
-    period: "Jan 2024 - Apr 2024",
-    location: "Toronto, ON, Canada (Remote)",
-    description: "Developed client-ready tech solutions",
-    highlights: [
-      "Built ETL pipelines for data processing",
-      "Designed software architecture for client projects",
-      "Delivered production-ready solutions"
-    ],
-    skills: ["Extract, Transform, Load (ETL)", "Software Design", "+2 skills"]
   }
 ];
 
