@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=34">
+    <link rel="stylesheet" href="styles.css?v=35">
     <style>
         /* Dark mode toggle button styles */
         .dark-mode-toggle {
@@ -86,9 +86,28 @@
 
         <section id="about" class="fade-in">
             <h2>about</h2>
-            <p>building software systems, working with data, solving problems.</p>
-            <p>i love to ship. whether it's a weekend hackathon project or a production system, i believe in getting things out the door and iterating based on real feedback.</p>
-            <p>i'm currently working on an llm project with <img src="images/sephira.png" alt="Sephira" class="sephira-logo"> sephira institute.</p>
+            <p>i'm attending <strong>Hack Canada</strong> and building software that ships.</p>
+            <p>i won <strong>1st overall</strong> 🏆 at <strong>CXC — Canada's Largest Data and AI Hackathon</strong>.</p>
+            <p>i'm working with <strong>Wedge (YC S25)</strong> and <strong>Dr. Guha Roy</strong> to build agents—including voice agents—for real-world use cases.</p>
+            <p>i'm also building an llm project with <img src="images/sephira.png" alt="Sephira" class="sephira-logo"> sephira institute, working with <strong>Cambridge Prof. Roberto Foa</strong>.</p>
+        </section>
+
+        <section id="currently-working-on" class="fade-in">
+            <h2>currently working on</h2>
+            <div class="projects-grid currently-working-grid">
+                <div class="project-card fade-in working-on-card">
+                    <div class="project-header">
+                        <h3>Voice agents with Wedge & Dr. Guha Roy</h3>
+                        <span class="working-badge">building</span>
+                    </div>
+                    <p class="project-description">Building AI agents—including voice agents—with Wedge (YC S25) and Dr. Guha Roy for real-world applications.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Voice AI</span>
+                        <span class="tech-tag">Agents</span>
+                        <span class="tech-tag">YC S25</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="experience" class="fade-in">
@@ -301,18 +320,21 @@
 
             <div class="project-card fade-in">
                 <div class="project-header">
-                    <h3>fifa data cleaner</h3>
-                    <a href="https://github.com/tanay-jagadeesh/fifa-data-cleaner" target="_blank" class="project-link">
+                    <h3>Churn Intelligence Platform</h3>
+                    <a href="https://github.com/tanay-jagadeesh/churn-intelligence-platform" target="_blank" class="project-link">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
                         </svg>
                     </a>
                 </div>
-                <p class="project-description">data cleaning pipeline for fifa 21 player dataset, handling currency conversion, contract dates, missing values, and generating comprehensive cleaning reports.</p>
+                <p class="project-description">A machine learning project that generates synthetic customer data, analyzes behavioral patterns, and predicts customer churn for a subscription-based business. Includes EDA notebooks, feature engineering, and trained models.</p>
                 <div class="tech-stack">
                     <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">pandas</span>
                     <span class="tech-tag">NumPy</span>
+                    <span class="tech-tag">scikit-learn</span>
+                    <span class="tech-tag">matplotlib</span>
+                    <span class="tech-tag">seaborn</span>
                 </div>
             </div>
 
