@@ -1,14 +1,34 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono, Lora } from "next/font/google";
 import "./globals.css";
-import SeasonalTheme from "@/components/SeasonalTheme";
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "Tanay Jagadeesh | Software Engineer & Data Scientist",
-  description: "First-year Management Engineering student specializing in data science, machine learning, and software development. Building real-time payment systems and orbital software.",
-  keywords: ["Tanay Jagadeesh", "Software Engineer", "Data Scientist", "Machine Learning", "Management Engineering"],
+  title: "Tanay Jagadeesh | Software Engineer",
+  description:
+    "Software engineer building production AI systems, data infrastructure, and developer tools. University of Waterloo, Management Engineering.",
+  keywords: [
+    "Tanay Jagadeesh",
+    "Software Engineer",
+    "Data Scientist",
+    "Machine Learning",
+    "Management Engineering",
+    "University of Waterloo",
+  ],
 };
 
 export default function RootLayout({
@@ -18,8 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} antialiased`}>
-        <SeasonalTheme />
+      <body className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>
